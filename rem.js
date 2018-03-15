@@ -15,3 +15,4 @@ window.onresize = function(){
     /*设置fontsize*/
     html.style.fontSize = fontSize +'px';
 }
+
