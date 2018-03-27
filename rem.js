@@ -1,17 +1,12 @@
-/*让文字和标签的大小随着屏幕的尺寸做变话 等比缩放*/
-var html = document.getElementsByTagName('html')[0];
-/*取到屏幕的宽度*/
-var width = window.innerWidth;
-/* 640 100  320 50 */
-var fontSize = 100/640*width;
-/*设置fontsize*/
-html.style.fontSize = fontSize +'px';
-window.onresize = function(){
-    var html = document.getElementsByTagName('html')[0];
-    /*取到屏幕的宽度*/
-    var width = window.innerWidth;
-    /* 640 100  320 50 */
-    var fontSize = 100/640 * width;
-    /*设置fontsize*/
-    html.style.fontSize = fontSize +'px';
-}
+(function(doc, win) {
+    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function() {
+            var clientWidth = docEl.clientWidth;
+            if (!clientWidth) return;
+            docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+        };
+    if (!doc.addEventListener) return;
+    win.addEventListener(resizeEvt, recalc, false);
+    doc.addEventListener('DOMContentLoaded', recalc, false);
+})(document, window);
